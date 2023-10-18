@@ -1,0 +1,7 @@
+<div style="display: flex; flex-direction: column; align-items: center; height: 100vh;">
+<h1>Book</h1>
+
+<p align="center">Title of Book: {{ book.Title }}</p>
+<p align="center">Publication date: {{ book.PublicationDate|date('Y-m-d') }}</p>
+<p align="center">Author: {{ book.Author.username }}</p>
+</div>

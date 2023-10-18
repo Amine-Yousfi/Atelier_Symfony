@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Modifier l'auteur</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.username) }}
+    {{ form_row(form.email) }}
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+    {{ form_end(form) }}
+
+    <a href="{{ path('list_authors') }}">Annuler</a>
+{% endblock %}

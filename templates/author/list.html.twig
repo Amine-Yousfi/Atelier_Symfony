@@ -1,0 +1,27 @@
+<html>
+<head>
+<body>
+<H1 align="center">List authors</H1>
+<table  border="4" align="center">
+    <tr>
+        <td align="center">UserName</td>
+        <td align="center">Email</td>
+        <td align="center">Nb_books</td>
+        <td align="center">Actions</td>
+    </tr>
+    {% for author in authors %}
+        <tr>
+            <td>{{ author.username }}</td>
+            <td>{{ author.email }}</td>
+            <td>{{ author.nb_books }}</td>
+            <td align="center"><a href="{{ path('edit_author', {'id': author.id}) }}">update</a><br>
+                <a href="{{ path('showA', {'id': author.id}) }}">show</a><br>
+                <a href="{{ path('delete_author', {'id': author.id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet auteur ?')">Delete</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<br><a  href="{{ path('createauthor') }}">Create new</a><br>
+</body>
+</head>
+</html>

@@ -1,0 +1,43 @@
+<html>
+<head>
+<body>
+<H1 align="center">List of Books</H1>
+<table  border="4" align="center">
+    <tr>
+        <td align="center">Title</td>
+        <td align="center">Publication date</td>
+        <td align="center">Published</td>
+        <td align="center">Category</td>
+        <td align="center">Author</td>
+        <td align="center">Actions</td>
+    </tr>
+    {% set publishedCount = 0 %}
+    {% set notPublishedCount = 0 %}
+    {% for book in Books %}
+        {% if book.Published == true %}
+            {% set publishedCount = publishedCount + 1 %}
+        <tr>
+            <td>{{ book.Title }}</td>
+            <td>{{ book.PublicationDate|date('Y-m-d') }}</td>
+            <td>{{ book.Published }}</td>
+            <td>{{ book.Category }}</td>
+            <td>{{ book.Author.username }}</td>
+            <td align="center"><a href="{{ path('edit_book', {'id': book.ref}) }}">update</a><br>
+                <a href="{{ path('showB', {'id': book.ref}) }}">show</a><br>
+                <a href="{{ path('delete_book', {'id': book.ref}) }}">Delete</a>
+            </td>
+        </tr>
+        {% else %}
+            {% set notPublishedCount = notPublishedCount + 1 %}
+        {% endif %}
+    {% endfor %}
+</table>
+{% if publishedCount == 0 and notPublishedCount == 0 %}
+    <br><p align="center">No Books found</p><br>
+{% endif %}
+<p align="center">Number of published books : {{ publishedCount }}</p><br>
+<p align="center">Number of unpublished books: {{ notPublishedCount }}</p><br>
+<br><a  href="{{ path('addBook') }}">Create new</a><br>
+</body>
+</head>
+</html>

@@ -1,0 +1,15 @@
+ <h1>Add Author</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.username, {
+        'attr': {'class': 'form-control', 'placeholder': 'Username'}
+    }) }}
+    {{ form_row(form.email, {
+        'attr': {'class': 'form-control', 'placeholder': 'Email'}
+    }) }}
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+    {{ form_end(form) }}

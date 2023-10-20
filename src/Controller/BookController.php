@@ -33,11 +33,9 @@ class BookController extends AbstractController
     }
 
     #[Route('/book/addBook', name:'addBook')]
-    public function addbook(Request $request, EntityManagerInterface $entityManager)
+    public function addbook(Request $request, ManagerRegistry $manager)
     {
         $book = new Book();
-        #$book->setAuthor($author);
-        #$author->setNb_Books($author->getNb_Books() + 1);
         $book->setPublished(true);
         $form = $this->createForm(BookType::class, $book);
 
@@ -47,9 +45,10 @@ class BookController extends AbstractController
             $author = $book->getAuthor();
             $author->setNb_Books($author->getNb_Books() + 1);
             // Les données du formulaire sont valides, vous pouvez les sauvegarder dans la base de données
-            $entityManager->persist($book);
-            $entityManager->persist($author);
-            $entityManager->flush();
+            $em=$manager->getManager();
+            $em->persist($book);
+            $em->persist($author);
+            $em->flush();
 
             $this->addFlash('success', 'Le livre a été enregistré avec succès.');
 

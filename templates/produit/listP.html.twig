@@ -1,0 +1,22 @@
+<html>
+<head>
+<body>
+<H1 align="center">List of Produits</H1>
+<table  border="4" align="center">
+    <tr>
+        <td align="center">Id</td>
+        <td align="center">Libelle</td>
+        <td align="center">Date de publication</td>
+    </tr>
+    {% for produit in Produits %}
+        <tr>
+            <td>{{ produit.id}}</td>
+            <td>{{ produit.libelle}}</td>
+            <td>{{ produit.datepublication|date('Y-m-d') }}</td>
+        </tr>
+    {% endfor %}
+</table>
+<br><a  href="{{ path('addProduit') }}">Create new</a><br>
+</body>
+</head>
+</html>

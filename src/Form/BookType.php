@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Author;
 use App\Entity\Book;
 use Cassandra\Date;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -9,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -44,10 +44,11 @@ class BookType extends AbstractType
                 'required' => true, // Le champ est obligatoire
             ])
             ->add('author', EntityType::class, [
-                'class' => 'App\Entity\Author', // L'entité à partir de laquelle vous souhaitez charger les auteurs
+                'class' => Author::class, // L'entité à partir de laquelle vous souhaitez charger les auteurs
                 'label' => 'Author',
                 'required' => true,
                 'choice_label' => 'username',
+                'placeholder'=> 'Choose an author',
             ])
         ;
     }

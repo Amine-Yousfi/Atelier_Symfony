@@ -1,0 +1,24 @@
+<html>
+<head>
+<body>
+<H1 align="center">List of Categories</H1>
+<table  border="4" align="center">
+    <tr>
+        <td align="center">Ref</td>
+        <td align="center">Name</td>
+        <td align="center">Actions</td>
+    </tr>
+    {% for categorie in Categories %}
+            <tr>
+                <td>{{ categorie.ref }}</td>
+                <td>{{ categorie.name}}</td>
+                <td align="center"><a href="{{ path('edit_categorie', {'id': categorie.ref}) }}">update</a><br>
+                    <a href="{{ path('delete_categorie', {'id': categorie.ref}) }}">Delete</a>
+                </td>
+            </tr>
+    {% endfor %}
+</table>
+<br><a  href="{{ path('addCategorie') }}">Create new</a><br>
+</body>
+</head>
+</html>

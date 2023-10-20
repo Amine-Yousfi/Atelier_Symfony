@@ -1,0 +1,13 @@
+<div style="display: flex; flex-direction: column; align-items: center; height: 100vh;">
+    <h1>Add Produit</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.libelle, {'attr': {'class': 'form-control', 'placeholder': 'Name'}}) }}<br>
+    {{ form_row(form.datepublication) }}<br>
+    {{ form_row(form.categorie) }}<br>
+
+    <button type="submit" class="btn btn-primary" aligne="centre">Add</button>
+
+    {{ form_end(form) }}
+</div>

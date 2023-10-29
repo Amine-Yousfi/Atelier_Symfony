@@ -2,6 +2,11 @@
 <head>
 <body>
 <H1 align="center">List authors</H1>
+{{ form_start(form) }}
+{{ form_row(form.minnb) }}
+{{ form_row(form.maxnb) }}<br>
+<button type="submit" class="btn btn-primary" aligne="centre">Search</button>
+{{ form_end(form) }}
 <table  border="4" align="center">
     <tr>
         <td align="center">UserName</td>

@@ -2,6 +2,10 @@
 <head>
 <body>
 <H1 align="center">List of Books</H1>
+{{ form_start(form) }}
+{{ form_row(form.ref) }}<br>
+<button type="submit" class="btn btn-primary" aligne="centre">Search</button>
+{{ form_end(form) }}
 <table  border="4" align="center">
     <tr>
         <td align="center">Title</td>
@@ -37,6 +41,8 @@
 {% endif %}
 <p align="center">Number of published books : {{ publishedCount }}</p><br>
 <p align="center">Number of unpublished books: {{ notPublishedCount }}</p><br>
+<p align="center">Nombre de livres de la catégorie Romance : {{ countRomanceBooks }}</p><br>
+
 <br><a  href="{{ path('addBook') }}">Create new</a><br>
 </body>
 </head>

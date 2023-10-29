@@ -21,6 +21,30 @@ class AuthorRepository extends ServiceEntityRepository
         parent::__construct($registry, Author::class);
     }
 
+    public function listAuthorByEmail(){
+        $list=$this->createQueryBuilder('a')
+            ->orderBy('a.email','ASC')
+            ->getQuery()
+            ->getResult();
+        return $list;
+    }
+
+    public function authorsListByYearDQL($minnb,$maxnb){
+        $em=$this->getEntityManager();
+        $list = $em->createQuery('SELECT a FROM App\Entity\Author a WHERE a.nb_books >= :minnb AND a.nb_books <= :maxnb')
+            ->setParameter('minnb', $minnb)
+            ->setParameter('maxnb', $maxnb)
+            ->getResult();
+        return $list;
+    }
+    public function deleteAuthorsWithZeroBooksDQL(){
+        $em=$this->getEntityManager();
+        $list = $em->createQuery('DELETE FROM App\Entity\Author a WHERE a.nb_books = :zero')
+            ->setParameter('zero', 0)
+            ->execute();
+    }
+
+
 //    /**
 //     * @return Author[] Returns an array of Author objects
 //     */

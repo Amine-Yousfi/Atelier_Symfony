@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Form\SearchAuthorType;
 use App\Repository\AuthorRepository;
+use App\Repository\BookRepository;
 use Container2cC8FC5\getAuthorRepositoryService;
 use Doctrine\ORM\EntityManagerInterface;
 #use phpDocumentor\Reflection\DocBlock\Tags\Author;
@@ -172,6 +174,58 @@ class AuthorController extends AbstractController
 
         }
         return null;
+    }
+
+    #[Route('listAuthorByEmail', name:'listAuthorByEmail')]
+    public function listAuthorByEmail(AuthorRepository $repo): Response
+    {
+        $list=$repo->listAuthorByEmail();
+        return $this->render('author/list.html.twig', [
+            'authors' => $list,
+        ]);
+    }
+
+    #[Route('/list_Authors', name: 'list_Authors')]
+    public function listAuthors(Request $request, AuthorRepository $repo): Response
+    {
+        $form = $this->createForm(SearchAuthorType::class);
+        $form->handleRequest($request);
+
+        $list = [];
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $minnb = $form->get('minnb')->getData(); // Récupérez la référence à partir du formulaire
+            $maxnb = $form->get('maxnb')->getData(); // Récupérez la référence à partir du formulaire
+
+            if ($maxnb && $minnb) {
+                // Utilisez la méthode searchBookByRef que nous avons définie dans le repository
+                $authors = $repo-> authorsListByYearDQL($minnb,$maxnb);
+
+                if ($authors) {
+                    $list = $authors; // Si un livre correspondant est trouvé, ajoutez-le à la liste
+                }
+            } else {
+                $list = $repo->findAll(); // Si aucun paramètre n'a été saisi, affichez tous les livres
+            }
+        }
+        else {
+            $list = $repo->findAll(); // Si aucun paramètre n'a été saisi, affichez tous les livres
+        }
+
+        return $this->render('author/list.html.twig', [
+            'authors' => $list,
+            'form' => $form->createView(),// Passez le formulaire à la vue
+        ]);
+    }
+    #[Route('deleteAuthorsWithZeroBooks', name:'deleteAuthorsWithZeroBooks')]
+    public function deleteAuthorsWithZeroBooks(AuthorRepository $repo): Response
+    {
+        $repo->deleteAuthorsWithZeroBooksDQL();
+
+        $this->addFlash('success', 'Mise à jour effectuée avec succès !');
+
+        // Redirigez l'utilisateur vers une autre page (par exemple, la liste des livres)
+        return $this->redirectToRoute('list_Authors');
     }
 
 }

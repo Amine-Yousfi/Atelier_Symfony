@@ -47,8 +47,6 @@ class BookRepository extends ServiceEntityRepository
     }
 
 
-
-
     public function booksListByAuthorsQB(){
         $list=$this->createQueryBuilder('b')
             ->orderBy('b.author','ASC')

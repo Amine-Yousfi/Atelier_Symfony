@@ -90,7 +90,8 @@ class AuthorController extends AbstractController
             return $this->redirectToRoute('list_authors');
         }
 
-        return $this->render('author/AuthorType.html.twig', ['form' => $form->createView(),]);
+        return $this->render('author/AuthorType.html.twig',
+            ['form'=>$form->createView(),]);
     }
 
     #[Route('/delete/{id}', name:'delete_author')]

@@ -21,6 +21,7 @@ class AuthorRepository extends ServiceEntityRepository
         parent::__construct($registry, Author::class);
     }
 
+    //afficher la liste des auteurs par ordre alphabétique des adresses email.
     public function listAuthorByEmail(){
         $list=$this->createQueryBuilder('a')
             ->orderBy('a.email','ASC')
@@ -29,6 +30,7 @@ class AuthorRepository extends ServiceEntityRepository
         return $list;
     }
 
+    // rechercher la liste des auteurs dont le nombre de livres est compris entre deux valeurs
     public function authorsListByYearDQL($minnb,$maxnb){
         $em=$this->getEntityManager();
         $list = $em->createQuery('SELECT a FROM App\Entity\Author a WHERE a.nb_books >= :minnb AND a.nb_books <= :maxnb')
@@ -37,6 +39,8 @@ class AuthorRepository extends ServiceEntityRepository
             ->getResult();
         return $list;
     }
+
+    // Supprimer les auteurs dont le nombre des livres est égale à 0 ( nb_books = 0)
     public function deleteAuthorsWithZeroBooksDQL(){
         $em=$this->getEntityManager();
         $list = $em->createQuery('DELETE FROM App\Entity\Author a WHERE a.nb_books = :zero')

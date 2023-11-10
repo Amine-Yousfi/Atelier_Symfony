@@ -139,6 +139,7 @@ class BookController extends AbstractController
      * @throws NonUniqueResultException
      * @throws NoResultException
      */
+    //Affichage le nombre des livres dont la catégorie est « Romance ».
     #[Route('/list_books', name: 'list_books')]
     public function listBooks(Request $request, BookRepository $repo): Response
     {
@@ -174,6 +175,7 @@ class BookController extends AbstractController
     }
 
 
+    //afficher la liste des livres triée par auteur. (partie controlleur)
     #[Route('booksListByAuthors', name:'booksListByAuthors')]
     public function booksListByAuthors(BookRepository $repo, Request $request): Response
     {
@@ -186,6 +188,7 @@ class BookController extends AbstractController
     }
 
 
+    //la liste des livres publiés avant l’année 2023 dont l’auteur a plus de 10 livres
     #[Route('booksListByYear', name:'booksListByYear')]
     public function booksListByYear(BookRepository $repo, Request $request): Response
     {
@@ -197,6 +200,7 @@ class BookController extends AbstractController
             'form' => $form->createView(),]);
     }
 
+    //modification les livres dont la catégorie est « Science-Fiction » par « Romance ».
     #[Route('updateScienceFictionToRomance', name:'updateScienceFictionToRomance')]
     public function updateScienceFictionToRomance(BookRepository $repo): Response
     {

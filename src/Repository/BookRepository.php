@@ -47,6 +47,7 @@ class BookRepository extends ServiceEntityRepository
     }
 
 
+    //afficher la liste des livres triée par auteur.
     public function booksListByAuthorsQB(){
         $list=$this->createQueryBuilder('b')
             ->orderBy('b.author','ASC')
@@ -55,6 +56,7 @@ class BookRepository extends ServiceEntityRepository
         return $list;
     }
 
+    // récupérer un livre selon la « ref » passée en paramètre.
     public function searchBookByRefQB($ref)
     {
         return $this->createQueryBuilder('b')
@@ -64,6 +66,7 @@ class BookRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    //la liste des livres publiés avant l’année 2023 dont l’auteur a plus de 10 livres
     public function booksListByYearQB()
     {
         return $this->createQueryBuilder('b')
@@ -75,6 +78,7 @@ class BookRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    //modification les livres dont la catégorie est « Science-Fiction » par « Romance ».
     public function updateScienceFictionToRomanceQB()
     {
         return $this->createQueryBuilder('b')
@@ -91,6 +95,8 @@ class BookRepository extends ServiceEntityRepository
      * @throws NonUniqueResultException
      * @throws NoResultException
      */
+
+    //Affichage le nombre des livres dont la catégorie est « Romance ».
     public function countRomanceBooksDQL(){
         $em= $this->getEntityManager();
 
@@ -99,6 +105,8 @@ class BookRepository extends ServiceEntityRepository
 
         return $query->getSingleScalarResult();
     }
+
+    // 2.Afficher la liste des livres publiés entre deux dates « 2014-01-01 » et «2018- 12-31 ».
     public function booksListByYearDQL(){
         $em=$this->getEntityManager();
         $list=$em->createQuery('select b from App\Entity\Book b where b.publicationDate > :date1 and b.publicationDate < :date2')
